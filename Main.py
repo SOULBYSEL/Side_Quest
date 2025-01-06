@@ -38,10 +38,9 @@ if average_players >= "10000":
     prompt = input("Would you like to award this game a point for this catagorey")
     if prompt == "yes" or prompt == "Yes":
         points += 1
-    elif prompt == "no" or prompt == "No":
-        points = 0
-print (points)
-
+        print (points)
+    else:
+        print(points)
 
 
 def get_user_reviews(review_appid, params):
@@ -73,4 +72,57 @@ params = {
     }
 
 reviews_response = get_user_reviews(review_appid, params)
-print(reviews_response)
+
+positive = reviews_response['query_summary']['total_positive']
+negative = reviews_response['query_summary']['total_negative']
+
+total_review = positive + negative
+print("Reviews gathered " + str(total_review))
+percent = (positive / total_review) * 100
+print("Positive review percent is " + str(percent))
+
+#ranking for reviews
+if percent >= 95:
+    print("Overwhelmingly Positive")
+    points += 1
+    print(points)
+elif percent < 95 and percent >= 85:
+    print("Very Positive")
+    print(points)
+    points += 1
+elif percent < 85 and percent >= 80:
+    print("Positive")
+    points += 1
+    print(points)
+elif percent < 80 and percent >= 70:
+    print("Mostly Positive")
+    prompt = input("Would you like to award this game a point for this catagorey")
+    if prompt == "yes" or prompt == "Yes":
+        points += 1
+        print (points)
+    else:
+        print(points)
+elif percent < 70 and percent >= 40:
+    print("Mixed")
+    prompt = input("Would you like to award this game a point for this catagorey")
+    if prompt == "yes" or prompt == "Yes":
+        points += 1
+        print (points)
+    else:
+        print(points)
+elif percent < 40 and percent >= 20:
+    print("Mostly Negative")
+    print(points)
+elif percent < 20 and percent >= 15:
+    print("Negative")
+    print(points)
+elif percent < 15 and percent >= 10:
+    print("Very Negative")
+    print(points)
+elif percent < 10 and percent >= 0:
+    print("Overwhelmingly Negative")
+    print(points)
+else:
+    print("No reviews have been found")
+
+
