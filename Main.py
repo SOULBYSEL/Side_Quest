@@ -2,9 +2,10 @@ import os
 import requests
 from steam_web_api import Steam
 
-#NOTE Most inputs will be click based
 
-app_id = input()
+#NOTE Most inputs will be click based
+name = input("Please state the name of the game(replace spaces with -)")
+app_id = input("Please enter the Steam App ID")
 
 #Game Rater
 #points system
@@ -126,3 +127,4 @@ else:
     print("No reviews have been found")
 
 
+#Critic scoring

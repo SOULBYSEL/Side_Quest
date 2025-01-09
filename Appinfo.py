@@ -12,3 +12,4 @@ steam = Steam(KEY)
 # arguments: app_id
 user = steam.apps.get_app_details(app_id)
 print(user)
+
