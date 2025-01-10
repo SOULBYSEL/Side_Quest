@@ -109,3 +109,5 @@ if __name__ == "__main__":
             print(f"{key}: {value}")
     else:
         print(result)
+
+print(result["metacritic"])
