@@ -1,7 +1,10 @@
-import os
 import requests
+import os
+import json
+import re
+from bs4 import BeautifulSoup
 from steam_web_api import Steam
-
+from requests_html import HTMLSession
 
 #NOTE Most inputs will be click based
 name = input("Please state the name of the game(replace spaces with -)")
@@ -128,3 +131,14 @@ else:
 
 
 #Critic scoring
+def remove_html_tags(text):
+    """
+    Removes HTML tags from a given string.
+    
+    Args:
+        text (str): The text from which HTML tags will be removed.
+    
+    Returns:
+        str: The cleaned text without HTML tags.
+    """
+    return re.sub(r'<[^>]*>', '', text)
