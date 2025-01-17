@@ -5,7 +5,7 @@ import requests
 from steam_web_api import Steam
 from Appinfo import fetch_and_clean_steam_app_details  # Import Appinfo.py functions
 import json  # Ensure json is imported
-
+from rate_game import fetch_game_data  # Import the new function
 
 # Initialize Pygame
 pygame.init()
@@ -90,6 +90,7 @@ steam = Steam(KEY)
 # Additional state variables
 viewing_details = False
 app_details = None  # Store fetched app details
+rating_result = ""  # Store the rating result text
 
 # Create buttons and input box
 start_button = Button(550, 690, start_img, 0.3)  # Adjusted position
@@ -222,9 +223,7 @@ while running:
                     if app_details:
                         appid = app_details.get('steam_appid', None)
                         if appid:
-                            # Call the original rating logic
-                            # Assume the functions such as `get_game_reviews` exist here
-                            pass
+                            rating_result = fetch_game_data(appid)
 
         else:
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
@@ -294,6 +293,14 @@ while running:
             return_to_search_button.draw()
         # Draw Rate Game button
         rate_game_button.draw()
+
+        # Draw rating result
+        if rating_result:
+            y_offset += 30
+            for line in wrap_text(rating_result, font, screen_width - 100):
+                text_surface = font.render(line, True, WHITE)
+                screen.blit(text_surface, (50, y_offset))
+                y_offset += 30
 
     else:
         screen.blit(logo, (screen_width // 2 - logo.get_width() // 2, 100))
